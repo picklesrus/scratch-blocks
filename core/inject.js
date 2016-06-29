@@ -65,21 +65,20 @@ Blockly.inject = function(container, opt_options) {
   if (!goog.dom.contains(document, container)) {
     throw 'Error: container is not in current document.';
   }
+  // Save this so we can pin the toolbox to it in toolbox.position.
+  Blockly.container_ = container;
   var options = new Blockly.Options(opt_options || {});
 
-  // Add the relative wrapper. This is for positioning the drag surface exactly
-  // on top of the blockly SVG. Without this, top positioning of the drag surface
-  // is always off by a few pixels.
-  var relativeWrapper = goog.dom.createDom('div', 'blocklyRelativeWrapper');
-  container.appendChild(relativeWrapper);
-
-  var svg = Blockly.createDom_(relativeWrapper, options);
-  var dragSurface = new Blockly.DragSurfaceSvg(relativeWrapper);
+  // Removed drag surface wrapper since blockly div is now position absolute. 
+  // Seems to be working???
+  var workspaceSvg = Blockly.createDom_(container, options);
+  var dragSurface = new Blockly.DragSurfaceSvg(container);
   dragSurface.createDom();
-  var workspace = Blockly.createMainWorkspace_(svg, options, dragSurface);
+  var workspace = Blockly.createMainWorkspace_(container, workspaceSvg,
+    options, dragSurface);
   Blockly.init_(workspace);
   workspace.markFocused();
-  Blockly.bindEvent_(svg, 'focus', workspace, workspace.markFocused);
+  Blockly.bindEvent_(workspaceSvg, 'focus', workspace, workspace.markFocused);
   Blockly.svgResize(workspace);
   return workspace;
 };
@@ -88,7 +87,7 @@ Blockly.inject = function(container, opt_options) {
  * Create the SVG image.
  * @param {!Element} container Containing element.
  * @param {!Blockly.Options} options Dictionary of options.
- * @return {!Element} Newly created SVG image.
+ * @return {!Array<!Element>} Newly created SVG image.
  * @private
  */
 Blockly.createDom_ = function(container, options) {
@@ -108,7 +107,9 @@ Blockly.createDom_ = function(container, options) {
     'xmlns:html': 'http://www.w3.org/1999/xhtml',
     'xmlns:xlink': 'http://www.w3.org/1999/xlink',
     'version': '1.1',
-    'class': 'blocklySvg'
+    'class': 'blocklySvg',
+    'width': '0',
+   'height': '0',
   }, container);
   var defs = Blockly.createSvgElement('defs', {}, svg);
   var rnd = String(Math.random()).substring(2);
@@ -187,19 +188,26 @@ Blockly.createDom_ = function(container, options) {
 /**
  * Create a main workspace and add it to the SVG.
  * @param {!Element} svg SVG element with pattern defined.
+ * @param {!Element} container The container for the workpsace.
  * @param {!Blockly.Options} options Dictionary of options.
  * @param {!Blockly.DragSurfaceSvg} dragSurface Drag surface SVG for the workspace.
  * @return {!Blockly.Workspace} Newly created main workspace.
  * @private
  */
-Blockly.createMainWorkspace_ = function(svg, options, dragSurface) {
+Blockly.createMainWorkspace_ = function(container, svg, options, dragSurface) {
   options.parentWorkspace = null;
   options.getMetrics = Blockly.getMainWorkspaceMetrics_;
   options.setMetrics = Blockly.setMainWorkspaceMetrics_;
   var mainWorkspace = new Blockly.WorkspaceSvg(options, dragSurface);
   mainWorkspace.scale = options.zoomOptions.startScale;
-  svg.appendChild(mainWorkspace.createDom('blocklyMainBackground'));
+  var stuffInsideSvg = mainWorkspace.createDom('blocklyMainBackground');
+  svg.appendChild(stuffInsideSvg);
+
   // A null translation will also apply the correct initial scale.
+   var trashLayer = mainWorkspace.createTrashLayer();
+  if (trashLayer) {
+    container.appendChild(trashLayer);
+  }
   mainWorkspace.translate(0, 0);
   mainWorkspace.markFocused();
 

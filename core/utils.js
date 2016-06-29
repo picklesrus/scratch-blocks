@@ -290,7 +290,9 @@ Blockly.getSvgXY_ = function(element, workspace) {
     x += xy.x * scale;
     y += xy.y * scale;
     element = element.parentNode;
-  } while (element && element != workspace.getParentSvg());
+    // This works assuming the flyout sits right on top of the workspace.
+    // Realistically it doesn't in the demo. Should it? Come back and look at this.
+  } while (element && element.nodeName != 'svg');
   return new goog.math.Coordinate(x, y);
 };
 

@@ -202,6 +202,8 @@ Blockly.Scrollbar = function(workspace, horizontal, opt_pair) {
   if (horizontal) {
     this.svgBackground_.setAttribute('height',
         Blockly.Scrollbar.scrollbarThickness);
+    this.svgGroup_.setAttribute('height',
+         Blockly.Scrollbar.scrollbarThickness);
     this.svgHandle_.setAttribute('height',
         Blockly.Scrollbar.scrollbarThickness - 5);
     this.svgHandle_.setAttribute('y', 2.5);
@@ -209,6 +211,8 @@ Blockly.Scrollbar = function(workspace, horizontal, opt_pair) {
     this.lengthAttribute_ = 'width';
     this.positionAttribute_ = 'x';
   } else {
+    this.svgGroup_.setAttribute('width',
+         Blockly.Scrollbar.scrollbarThickness);
     this.svgBackground_.setAttribute('width',
         Blockly.Scrollbar.scrollbarThickness);
     this.svgHandle_.setAttribute('width',
@@ -339,6 +343,7 @@ Blockly.Scrollbar.prototype.setHandlePosition = function(newPosition) {
 Blockly.Scrollbar.prototype.setScrollViewSize_ = function(newSize) {
   this.scrollViewSize_ = newSize;
   this.svgBackground_.setAttribute(this.lengthAttribute_, this.scrollViewSize_);
+  this.svgGroup_.setAttribute(this.lengthAttribute_, this.scrollViewSize_);
 };
 
 /**
@@ -349,9 +354,9 @@ Blockly.Scrollbar.prototype.setScrollViewSize_ = function(newSize) {
 Blockly.Scrollbar.prototype.setPosition = function(x, y) {
   this.position_.x = x;
   this.position_.y = y;
+  var newTranslation = 'translate3d(' + x + 'px,' + y + 'px,0px)';
+  this.svgGroup_.style.transform = newTranslation;
 
-  this.svgGroup_.setAttribute('transform',
-      'translate(' + this.position_.x + ',' + this.position_.y + ')');
 };
 
 /**
@@ -497,6 +502,14 @@ Blockly.Scrollbar.prototype.resizeViewVertical = function(hostMetrics) {
   if (!this.workspace_.RTL) {
     xCoordinate += hostMetrics.viewWidth -
         Blockly.Scrollbar.scrollbarThickness - 1;
+    if (this.workspace_.isFlyout) {
+      if (Blockly.getMainWorkspace().toolbox_) {
+        // get main workspace is evil. fix.
+        xCoordinate += Blockly.getMainWorkspace().toolbox_.width;
+        } else {
+          xCoordinate += Blockly.Scrollbar.scrollbarThickness;
+        }
+      }
   }
   var yCoordinate = hostMetrics.absoluteTop + 0.5;
   this.setPosition(xCoordinate, yCoordinate);
@@ -546,15 +559,19 @@ Blockly.Scrollbar.prototype.createDom_ = function() {
   */
   var className = 'blocklyScrollbar' +
       (this.horizontal_ ? 'Horizontal' : 'Vertical');
-  this.svgGroup_ = Blockly.createSvgElement('g', {'class': className}, null);
+ this.svgGroup_ = Blockly.createSvgElement('svg',
+   {'class': className,
+  'height': '0',
+  'width:': '0'}, null);
   this.svgBackground_ = Blockly.createSvgElement('rect',
       {'class': 'blocklyScrollbarBackground'}, this.svgGroup_);
   var radius = Math.floor((Blockly.Scrollbar.scrollbarThickness - 5) / 2);
   this.svgHandle_ = Blockly.createSvgElement('rect',
       {'class': 'blocklyScrollbarHandle', 'rx': radius, 'ry': radius},
       this.svgGroup_);
-  Blockly.Scrollbar.insertAfter_(this.svgGroup_,
-                                 this.workspace_.getBubbleCanvas());
+  // This is evil. Fix it.
+  var zoom = document.getElementsByClassName('blocklyZoom')[0];
+  Blockly.Scrollbar.insertAfter_(this.svgGroup_, zoom);
 };
 
 /**

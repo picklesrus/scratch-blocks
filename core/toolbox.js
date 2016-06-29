@@ -182,7 +182,9 @@ Blockly.Toolbox.prototype.init = function() {
    * @private
    */
   this.flyout_ = new Blockly.Flyout(workspaceOptions);
-  goog.dom.insertSiblingAfter(this.flyout_.createDom(), workspace.svgGroup_);
+  goog.dom.insertSiblingAfter(this.flyout_.createDom(), 
+    document.getElementsByClassName('blocklySvg')[0]);
+
   this.flyout_.init(workspace);
   this.flyout_.hide();
 
@@ -238,28 +240,29 @@ Blockly.Toolbox.prototype.position = function() {
     return;
   }
   var svg = this.workspace_.getParentSvg();
-  var svgPosition = goog.style.getPageOffset(svg);
+  var divContainer = Blockly.container_;
+  var divPosition = goog.style.getPageOffset(divContainer);
   var svgSize = Blockly.svgSize(svg);
   if (this.horizontalLayout_) {
-    treeDiv.style.left = svgPosition.x + 'px';
+    treeDiv.style.left = divPosition.x + 'px';
     treeDiv.style.height = 'auto';
     treeDiv.style.width = svgSize.width + 'px';
     this.height = treeDiv.offsetHeight;
     if (this.toolboxPosition == Blockly.TOOLBOX_AT_TOP) {  // Top
-      treeDiv.style.top = svgPosition.y + 'px';
+      treeDiv.style.top = divPosition.y + 'px';
     } else {  // Bottom
-      var topOfToolbox = svgPosition.y + svgSize.height - treeDiv.offsetHeight;
+      var topOfToolbox = divPosition.y + svgSize.height - treeDiv.offsetHeight;
       treeDiv.style.top = topOfToolbox + 'px';
     }
   } else {
     if (this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) {  // Right
       treeDiv.style.left =
-          (svgPosition.x + svgSize.width - treeDiv.offsetWidth) + 'px';
+          (divPosition.x + svgSize.width - treeDiv.offsetWidth) + 'px';
     } else {  // Left
-      treeDiv.style.left = svgPosition.x + 'px';
+      treeDiv.style.left = divPosition.x + 'px';
     }
     treeDiv.style.height = svgSize.height + 'px';
-    treeDiv.style.top = svgPosition.y + 'px';
+    treeDiv.style.top = divPosition.y + 'px';
     this.width = treeDiv.offsetWidth;
     if (this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT) {
       // For some reason the LTR toolbox now reports as 1px too wide.

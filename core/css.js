@@ -159,14 +159,17 @@ Blockly.Css.CONTENT = [
   '.blocklySvg {',
     'background-color: $colour_workspace;',
     'outline: none;',
-    'overflow: hidden;',  /* IE overflows by default. */
+    'position: absolute;',
+    'overflow: visible;',  /* IE overflows by default. */
   '}',
 
   /* Necessary to position the drag surface */
+  /* look here for bugs too. blockly doesn't have this */
   '.blocklyRelativeWrapper {',
     'position: relative;',
     'width: 100%;',
     'height: 100%;',
+    'overflow: visible',
   '}',
 
   '.blocklyWidgetDiv {',
@@ -489,7 +492,28 @@ Blockly.Css.CONTENT = [
     'stroke: #ddd;',
     'stroke-width: 1;',
   '}',
+'.blocklyZoom {',
+    'position:absolute;',
+    'outline: none;',
+  '}',
 
+  '.blocklyTrash {',
+    'position:absolute;',
+    'outline: none;',
+    'overflow: visible;', /* for animation */
+  '}',
+  '.blocklyFlyout {',
+    'position:absolute;',
+    'outline: none;',
+  '}',
+  '.blocklyScrollbarVertical {',
+    'position:absolute;',
+    'outline: none;',
+  '}',
+  '.blocklyScrollbarHorizontal {',
+    'position:absolute;',
+    'outline: none;',
+  '}',
   '.blocklyFlyoutBackground {',
     'fill: $colour_flyout;',
     'fill-opacity: .8;',

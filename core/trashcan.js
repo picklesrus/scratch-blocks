@@ -164,8 +164,12 @@ Blockly.Trashcan.prototype.createDom = function() {
         clip-path="url(#blocklyTrashLidClipPath837493)"></image>
   </g>
   */
-  this.svgGroup_ = Blockly.createSvgElement('g',
-      {'class': 'blocklyTrash'}, null);
+
+
+  this.svgGroup_ = Blockly.createSvgElement('svg',
+    {'class': 'blocklyTrash',
+     'height': this.LID_HEIGHT_ + this.BODY_HEIGHT_,
+     'width': this.WIDTH_ }, null);
   var rnd = String(Math.random()).substring(2);
   var clip = Blockly.createSvgElement('clipPath',
       {'id': 'blocklyTrashBodyClipPath' + rnd},
@@ -256,8 +260,8 @@ Blockly.Trashcan.prototype.position = function() {
   if (metrics.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM) {
     this.top_ -= metrics.flyoutHeight;
   }
-  this.svgGroup_.setAttribute('transform',
-      'translate(' + this.left_ + ',' + this.top_ + ')');
+  var newTranslation = 'translate3d(' + this.left_ + 'px,' + this.top_ + 'px,0px)';
+  this.svgGroup_.style.transform = newTranslation;
 };
 
 /**

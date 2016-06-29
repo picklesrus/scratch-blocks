@@ -112,10 +112,11 @@ Blockly.ZoomControls.prototype.createDom = function() {
         clip-path="url(#blocklyZoomresetClipPath837493)"></image>
   </g>
   */
-  this.svgGroup_ = Blockly.createSvgElement('g',
-      {'class': 'blocklyZoom'}, null);
   var rnd = String(Math.random()).substring(2);
-
+  this.svgGroup_ = Blockly.createSvgElement('svg',
+        {'class': 'blocklyZoom',
+       'width': this.WIDTH_,
+       'height': this.HEIGHT_}, null);
   var clip = Blockly.createSvgElement('clipPath',
       {'id': 'blocklyZoomoutClipPath' + rnd},
       this.svgGroup_);
@@ -234,6 +235,7 @@ Blockly.ZoomControls.prototype.position = function() {
   if (metrics.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM) {
     this.top_ -= metrics.flyoutHeight;
   }
-  this.svgGroup_.setAttribute('transform',
-      'translate(' + this.left_ + ',' + this.top_ + ')');
+  // translate 3d won't always work. FIx.
+  var newTranslation = 'translate3d(' + this.left_ + 'px,' + this.top_ + 'px,0px)';
+  this.svgGroup_.style.transform = newTranslation;
 };

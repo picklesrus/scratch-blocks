@@ -171,8 +171,8 @@ Blockly.hueToRgb = function(hue) {
  * @return {!Object} Contains width and height properties.
  */
 Blockly.svgSize = function(svg) {
-  return {width: svg.cachedWidth_,
-          height: svg.cachedHeight_};
+  return {width: svg.containerWidth_,
+          height: svg.containerHeight_};
 };
 
 /**
@@ -206,13 +206,13 @@ Blockly.svgResize = function(workspace) {
   }
   var width = div.offsetWidth;
   var height = div.offsetHeight;
-  if (svg.cachedWidth_ != width) {
+  if (svg.containerWidth_ != width) {
     svg.setAttribute('width', width + 'px');
-    svg.cachedWidth_ = width;
+    svg.containerWidth_ = width;
   }
-  if (svg.cachedHeight_ != height) {
+  if (svg.containerHeight_ != height) {
     svg.setAttribute('height', height + 'px');
-    svg.cachedHeight_ = height;
+    svg.containerHeight_ = height;
   }
   mainWorkspace.resize();
 };
@@ -459,6 +459,9 @@ Blockly.getMainWorkspaceMetrics_ = function() {
         this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) {
       svgSize.width -= this.toolbox_.getWidth();
     }
+  } else if (this.flyout_) {
+    window.console.log(
+      'do something about flyout size so blocks cannot scroll under');
   }
   // Set the margin to match the flyout's margin so that the workspace does
   // not jump as blocks are added.
@@ -489,6 +492,17 @@ Blockly.getMainWorkspaceMetrics_ = function() {
     var topEdge = blockBox.y;
     var bottomEdge = topEdge + blockBox.height;
   }
+
+  // Fix this if. silly code.
+  if (this.scrollbar) {
+    var finalWidth = rightEdge - leftEdge;
+    var finalHeight = bottomEdge - topEdge;
+  } else {
+    // hah no. probalby wrong. haven't tested yet.
+    var finalWidth = viewWidth;
+    var finalHeight = viewHeight;
+  }
+
   var absoluteLeft = 0;
   if (this.toolbox_ && this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT) {
     absoluteLeft = this.toolbox_.getWidth();
@@ -501,8 +515,8 @@ Blockly.getMainWorkspaceMetrics_ = function() {
   var metrics = {
     viewHeight: svgSize.height,
     viewWidth: svgSize.width,
-    contentHeight: bottomEdge - topEdge,
-    contentWidth: rightEdge - leftEdge,
+    contentHeight: finalHeight,
+    contentWidth: finalWidth,
     viewTop: -this.scrollY,
     viewLeft: -this.scrollX,
     contentTop: topEdge,
@@ -532,16 +546,19 @@ Blockly.setMainWorkspaceMetrics_ = function(xyRatio) {
   var metrics = this.getMetrics();
   if (goog.isNumber(xyRatio.x)) {
     this.scrollX = -metrics.contentWidth * xyRatio.x - metrics.contentLeft;
+    this.translateX = Math.round(this.scrollX + metrics.absoluteLeft);
   }
   if (goog.isNumber(xyRatio.y)) {
     this.scrollY = -metrics.contentHeight * xyRatio.y - metrics.contentTop;
+    this.translateY = Math.round(this.scrollY + metrics.absoluteTop);
   }
   var x = this.scrollX + metrics.absoluteLeft;
   var y = this.scrollY + metrics.absoluteTop;
-  this.translate(x, y);
+  this.translate(this.translateX, this.translateY);
+  // I think this is unnecessary when moving the svg containing the dots.
   if (this.options.gridPattern) {
-    this.options.gridPattern.setAttribute('x', x);
-    this.options.gridPattern.setAttribute('y', y);
+//    this.options.gridPattern.setAttribute('x', x);
+//    this.options.gridPattern.setAttribute('y', y);
     if (goog.userAgent.IE) {
       // IE doesn't notice that the x/y offsets have changed.  Force an update.
       this.updateGridPattern_();
