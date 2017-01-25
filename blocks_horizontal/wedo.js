@@ -87,7 +87,6 @@ Blockly.Blocks['wedo_setcolor'] = {
           "name": "CHOICE"
         }
       ],
-      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "category": Blockly.Categories.looks,
