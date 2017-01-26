@@ -23,6 +23,7 @@
 
       var fakeDragStack = [];
       var workspace = null;
+      var canvas = null;
 
       function start() {
 
@@ -66,9 +67,9 @@
             dragShadowOpacity: 0.6
           }
         });
-
-       drawStuff();
+        drawStuff();
       }
+
 
       function getToolboxElement() {
         var match = location.search.match(/toolbox=([^&]+)/);
@@ -76,11 +77,17 @@
       }
 
       function drawStuff() {
-        var s = new MySprite();
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
-        s.draw(context);
+        canvas = new MyCanvas();
+        canvas.setSprite(new MySprite(canvas.cxt));
+        canvas.redraw();
       }
+      function moveButton() {
+        canvas.moveSprite(10);
+      }
+      function turnButton() {
+        canvas.rotateSprite(1);
+      }
+
     </script>
 
     <style>
@@ -109,7 +116,9 @@
         height: 50%;
         width: 100%;
       }
-
+      #buttons {
+        float:right;
+      }
       #collaborators {
         float: right;
         width: 30px;
@@ -133,7 +142,12 @@
   <body onload="start()">
     <div id="collaborators"></div>
     <div id="blocklyDiv"></div>
+
     <div id="canvasDiv">
+    <div id="buttons">
+      <button onclick='moveButton()' type="button"> move </button>
+      <button onclick='turnButton()' type="button"> turn </button>
+    </div>
          <canvas id="myCanvas" height="450" width="450">
         </canvas>
     </div>
