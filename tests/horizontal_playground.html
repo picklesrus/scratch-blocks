@@ -24,6 +24,8 @@
       var fakeDragStack = [];
       var workspace = null;
       var canvas = null;
+      var bgList = ['turtlebg.jpg', 'clouds.jpg', 'trees.jpg'];
+      var bgIndex = 0;
 
       function start() {
 
@@ -78,6 +80,7 @@
 
       function drawStuff() {
         canvas = new MyCanvas();
+        canvas.setBackground(bgList[bgIndex]);
         canvas.setSprite(new MySprite(canvas.cxt));
         canvas.redraw();
       }
@@ -86,6 +89,14 @@
       }
       function turnButton() {
         canvas.rotateSprite(1);
+      }
+      function backgroundButton() {
+        if (bgIndex < bgList.length - 1) {
+          bgIndex ++;
+        } else {
+          bgIndex = 0;
+        }
+        canvas.setBackground(bgList[bgIndex]);
       }
 
     </script>
@@ -101,7 +112,10 @@
         overflow: hidden;
       }
       canvas {
-        background:lightgrey;
+        background: url('../media/turtlebg.jpg');
+        background-size: contain;
+        background-position: top;
+        background-repeat: no-repeat;
       }
       h1 {
         font-weight: normal;
@@ -119,6 +133,7 @@
       #buttons {
         float:right;
       }
+
       #collaborators {
         float: right;
         width: 30px;
@@ -147,6 +162,8 @@
     <div id="buttons">
       <button onclick='moveButton()' type="button"> move </button>
       <button onclick='turnButton()' type="button"> turn </button>
+      <button onclick='backgroundButton()' type="button"> bg </button>
+
     </div>
          <canvas id="myCanvas" height="450" width="450">
         </canvas>

@@ -32,6 +32,15 @@ MyCanvas.prototype.setSprite = function(sprite) {
 	this.sprite = sprite;
 };
 
+MyCanvas.prototype.setBackground = function(background) {
+	this.background = background;
+	var s ='url(\'../media/' + background + '\')';
+	this.canvas.style.background = s;
+	this.canvas.style.backgroundRepeat = 'no-repeat';
+	this.canvas.style.backgroundSize = 'contain';
+
+};
+
 MyCanvas.prototype.redraw = function() {
 	this.context.clearRect(0, 0, this.height, this.height);
 	this.context.save();
