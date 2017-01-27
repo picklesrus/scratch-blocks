@@ -1,6 +1,6 @@
-function MySprite() {
-	this.img = new Image()
-	this.img.src = Blockly.mainWorkspace.options.pathToMedia + "turtle.png"
+function MySprite(img) {
+	this.img = new Image();
+	this.img.src = Blockly.mainWorkspace.options.pathToMedia + "turtle.png";
 	this.x = 50;
 	this.y = 50;
 	this.height = 64;
@@ -20,6 +20,10 @@ MySprite.prototype.rotate = function(steps) {
   this.rotation += steps;
 };
 
+MySprite.prototype.setSpriteImage = function(img) {
+  this.img = img;
+};
+
 function MyCanvas() {
 	this.canvas = document.getElementById('myCanvas');
 	this.width = 450;
@@ -30,6 +34,11 @@ function MyCanvas() {
 
 MyCanvas.prototype.setSprite = function(sprite) {
 	this.sprite = sprite;
+};
+
+MyCanvas.prototype.changeSpriteImage = function(img) {
+	this.sprite.setSpriteImage(img);
+	this.redraw();
 };
 
 MyCanvas.prototype.setBackground = function(background) {
@@ -47,6 +56,9 @@ MyCanvas.prototype.redraw = function() {
 	this.context.translate(this.sprite.x, this.sprite.y);
 	this.sprite.draw(this.context, 0, 0);
 	this.context.restore();
+};
+MyCanvas.prototype.clear = function() {
+	this.context.clearRect(0, 0, this.height, this.height);
 };
 
 MyCanvas.prototype.moveSprite = function(steps) {

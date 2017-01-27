@@ -27,6 +27,10 @@
       var bgList = ['turtlebg.jpg', 'clouds.jpg', 'trees.jpg'];
       var bgIndex = 0;
 
+      var imageList = [];
+//      var imageList = ['turtle.png', 'soccer.png', 'cupcake.png', 'penguin.png'];
+      var imageIndex = 0;
+
       function start() {
 
         // Setup blocks
@@ -69,9 +73,53 @@
             dragShadowOpacity: 0.6
           }
         });
+        loadImages();
         drawStuff();
       }
 
+      function loadImages() {
+        // THIS CODE IS SILLY. FIX IT.
+        var turtle = new Image();
+        turtle.onload = function () {
+          //draw background image
+          var ctx = document.getElementById('myCanvas').getContext('2d');
+          ctx.drawImage(turtle, 0, 0);
+          ctx.clearRect(0, 0, 450, 450);
+        };
+        turtle.src = Blockly.mainWorkspace.options.pathToMedia + "turtle.png";
+
+        var soccer = new Image();
+        soccer.onload = function () {
+          //draw background image
+          var ctx = document.getElementById('myCanvas').getContext('2d');
+          ctx.drawImage(soccer, 0, 0);
+          ctx.clearRect(0, 0, 450, 450);
+
+        };
+        soccer.src = Blockly.mainWorkspace.options.pathToMedia + "soccer.png";
+
+        var penguin = new Image();
+        penguin.onload = function () {
+          //draw background image
+          var ctx = document.getElementById('myCanvas').getContext('2d');
+          ctx.drawImage(penguin, 0, 0);
+          ctx.clearRect(0, 0, 450, 450);
+
+        };
+        penguin.src = Blockly.mainWorkspace.options.pathToMedia + "penguin.png";
+        
+        var cupcake = new Image();
+        cupcake.onload = function () {
+          //draw background image
+          var ctx = document.getElementById('myCanvas').getContext('2d');
+          ctx.drawImage(cupcake, 0, 0);
+          ctx.clearRect(0, 0, 450, 450);
+
+        };
+        cupcake.src = Blockly.mainWorkspace.options.pathToMedia + "cupcake.png";
+
+        imageList = [turtle,soccer, penguin, cupcake];
+      }
 
       function getToolboxElement() {
         var match = location.search.match(/toolbox=([^&]+)/);
@@ -80,6 +128,7 @@
 
       function drawStuff() {
         canvas = new MyCanvas();
+        canvas.clear();
         canvas.setBackground(bgList[bgIndex]);
         canvas.setSprite(new MySprite(canvas.cxt));
         canvas.redraw();
@@ -90,6 +139,7 @@
       function turnButton() {
         canvas.rotateSprite(1);
       }
+      
       function backgroundButton() {
         if (bgIndex < bgList.length - 1) {
           bgIndex ++;
@@ -97,6 +147,14 @@
           bgIndex = 0;
         }
         canvas.setBackground(bgList[bgIndex]);
+      }
+      function spriteButton() {
+        if (imageIndex < imageList.length - 1) {
+          imageIndex ++;
+        } else {
+          imageIndex = 0;
+        }
+        canvas.changeSpriteImage(imageList[imageIndex]);
       }
 
     </script>
@@ -163,6 +221,7 @@
       <button onclick='moveButton()' type="button"> move </button>
       <button onclick='turnButton()' type="button"> turn </button>
       <button onclick='backgroundButton()' type="button"> bg </button>
+      <button onclick='spriteButton()' type="button"> sprite </button>
 
     </div>
          <canvas id="myCanvas" height="450" width="450">
