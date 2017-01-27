@@ -13,11 +13,15 @@ MySprite.prototype.draw = function(ctx, x, y) {
 };
 
 MySprite.prototype.move = function(steps) {
-  this.x += steps;
+  this.x += 10*Math.sin((this.rotation + 90)  * (Math.PI/180));
+  this.y += -1*10*Math.cos((this.rotation + 90)  * (Math.PI/180));
 };
 
 MySprite.prototype.rotate = function(steps) {
   this.rotation += steps;
+  if (this.rotation > 360) {
+  	this.rotation = 0;
+  }
 };
 
 MySprite.prototype.setSpriteImage = function(img) {
@@ -38,7 +42,7 @@ MyCanvas.prototype.setSprite = function(sprite) {
 
 MyCanvas.prototype.changeSpriteImage = function(img) {
 	this.sprite.setSpriteImage(img);
-	this.redraw();
+	this.redrawSprite();
 };
 
 MyCanvas.prototype.setBackground = function(background) {
@@ -75,7 +79,7 @@ MyCanvas.prototype.redrawSprite = function() {
  
 	// rotate around that point, converting our 
 	// angle from degrees to radians 
-	this.context.rotate(this.sprite.rotation);
+	this.context.rotate(this.sprite.rotation * Math.PI/180);
  
 	// draw it up and to the left by half the width
 	// and height of the image 
