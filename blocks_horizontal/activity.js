@@ -28,6 +28,16 @@ Blockly.Blocks['activity_start'] = {
     });
   }
 };
+Blockly.JavaScript['activity_start'] = function(block) {
+  return '';
+};
+Blockly.JavaScript['control_repeat']=function(a){var b=a.getField("TIMES")?String(Number(a.getFieldValue("TIMES"))):Blockly.JavaScript.valueToCode(a,"TIMES",Blockly.JavaScript.ORDER_ASSIGNMENT)||"0",c=Blockly.JavaScript.statementToCode(a,"SUBSTACK"),c=Blockly.JavaScript.addLoopTrap(c,a.id);a="";var d=Blockly.JavaScript.variableDB_.getDistinctName("count",Blockly.Variables.NAME_TYPE),e=b;b.match(/^\w+$/)||Blockly.isNumber(b)||(e=Blockly.JavaScript.variableDB_.getDistinctName("repeat_end",Blockly.Variables.NAME_TYPE),
+a+="var "+e+" = "+b+";\n");return a+("for (var "+d+" = 0; "+d+" < "+e+"; "+d+"++) {\n"+c+"}\n")};
+
+
+Blockly.JavaScript['math_number']=function(a){return[parseFloat(a.getFieldValue("NUM")),Blockly.JavaScript.ORDER_ATOMIC]};
+Blockly.JavaScript['math_whole_number']=Blockly.JavaScript.math_number;
+
 Blockly.Blocks['sprite_right'] = {
   init: function() {
     this.jsonInit({
@@ -57,6 +67,7 @@ Blockly.Blocks['sprite_right'] = {
     });
   }
 };
+
 
 
 Blockly.Blocks['sprite_left'] = {
@@ -117,6 +128,17 @@ Blockly.Blocks['sprite_forward'] = {
       "colourTertiary": Blockly.Colours.motion.tertiary
     });
   }
+};
+
+Blockly.JavaScript['sprite_forward'] = function(block) {
+  // Generate JavaScript for moving forward or backwards.
+  var steps =block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'canvas.moveSprite(' + steps + ');\n';
+};
+Blockly.JavaScript['sprite_back'] = function(block) {
+  // Generate JavaScript for moving forward or backwards.
+  var steps = block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'canvas.moveSprite(-' + steps + ');\n';
 };
 Blockly.Blocks['sprite_back'] = {
  init: function() {

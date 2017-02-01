@@ -6,6 +6,8 @@ function MySprite(img) {
 	this.height = 64;
 	this.width = 64;
 	this.rotation = 0;
+	this.maxX = 450;
+	this.maxY = 450;
 };
 
 MySprite.prototype.draw = function(ctx, x, y) {
@@ -13,8 +15,19 @@ MySprite.prototype.draw = function(ctx, x, y) {
 };
 
 MySprite.prototype.move = function(steps) {
-  this.x += 10*Math.sin((this.rotation + 90)  * (Math.PI/180));
-  this.y += -1*10*Math.cos((this.rotation + 90)  * (Math.PI/180));
+  var scaledStep = steps; 
+  this.x += scaledStep*Math.sin((this.rotation + 90)  * (Math.PI/180));
+  this.y += -1*scaledStep*Math.cos((this.rotation + 90)  * (Math.PI/180));
+  if (this.x > this.maxX) {
+  	this.x = 0;
+  } else if (this.x < 0) {
+  	this.x = 450;
+  }
+  if (this.y > this.maxY) {
+  	this.y = 0;
+  } else if (this.y < 0) {
+    this.y = 450;
+  }
 };
 
 MySprite.prototype.rotate = function(steps) {

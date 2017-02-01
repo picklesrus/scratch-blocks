@@ -7,6 +7,7 @@
     <title>Horizontal Playground</title>
 
     <script src="../blockly_uncompressed_horizontal.js"></script>
+    <script src="../javascript_compressed.js"></script>
     <script src="../msg/messages.js"></script>
     <script src="../blocks_common/math.js"></script>
     <script src="../blocks_common/text.js"></script>
@@ -156,6 +157,23 @@
         }
         canvas.changeSpriteImage(imageList[imageIndex]);
       }
+      function codeButton() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        alert(code);
+       }
+      function runCodeButton() {
+        // Generate JavaScript code and run it.
+      window.LoopTrap = 1000;
+      Blockly.JavaScript.INFINITE_LOOP_TRAP =
+          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+      var code = Blockly.JavaScript.workspaceToCode(workspace);
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      try {
+        eval(code);
+      } catch (e) {
+        alert(e);
+      }
+    }
 
     </script>
 
@@ -222,6 +240,9 @@
       <button onclick='turnButton()' type="button"> turn </button>
       <button onclick='backgroundButton()' type="button"> bg </button>
       <button onclick='spriteButton()' type="button"> sprite </button>
+      <button onclick='codeButton()' type="button"> see code </button>
+      <button onclick='runCodeButton()' type="button"> run code </button>
+
 
     </div>
          <canvas id="myCanvas" height="450" width="450">
