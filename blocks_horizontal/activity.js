@@ -111,7 +111,7 @@ Blockly.Blocks['sprite_forward'] = {
           "src": Blockly.mainWorkspace.options.pathToMedia + "icons/forward.svg",
           "width": 40,
           "height": 40,
-          "alt": "Wait"
+          "alt": "Forward"
         },
         {
           "type": "input_value",
@@ -133,12 +133,28 @@ Blockly.Blocks['sprite_forward'] = {
 Blockly.JavaScript['sprite_forward'] = function(block) {
   // Generate JavaScript for moving forward or backwards.
   var steps =block.getFieldShadowBlock_().getFieldValue('NUM');
-  return 'canvas.moveSprite(' + steps + ');\n';
+  return 'moveSprite(' + steps + ');\n';
 };
 Blockly.JavaScript['sprite_back'] = function(block) {
   // Generate JavaScript for moving forward or backwards.
   var steps = block.getFieldShadowBlock_().getFieldValue('NUM');
-  return 'canvas.moveSprite(-' + steps + ');\n';
+  return 'moveSprite(-' + steps + ');\n';
+};
+Blockly.JavaScript['sprite_left'] = function(block) {
+  // Generate JavaScript for moving forward or backwards.
+  var steps = block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'rotateSprite(-' + steps + ');\n';
+};
+Blockly.JavaScript['sprite_right'] = function(block) {
+  // Generate JavaScript for moving forward or backwards.
+  var steps = block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'rotateSprite(' + steps + ');\n';
+};
+Blockly.JavaScript['change_costume'] = function(block) {
+  return 'changeSprite();\n';
+};
+Blockly.JavaScript['change_background'] = function(block) {
+  return 'changeBackground();\n';
 };
 Blockly.Blocks['sprite_back'] = {
  init: function() {

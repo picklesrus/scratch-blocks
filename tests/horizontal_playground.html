@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <title>Horizontal Playground</title>
+    <script src="acorn_interpreter.js"></script>
+    <script src="acorn.js"></script>
 
     <script src="../blockly_uncompressed_horizontal.js"></script>
     <script src="../javascript_compressed.js"></script>
@@ -21,15 +23,14 @@
 
     <script>
       'use strict';
-
+      var Foo = {};
+      Foo.canvas = null;
+      var myInterpreter = null;
       var fakeDragStack = [];
       var workspace = null;
-      var canvas = null;
       var bgList = ['turtlebg.jpg', 'clouds.jpg', 'trees.jpg'];
       var bgIndex = 0;
-
       var imageList = [];
-//      var imageList = ['turtle.png', 'soccer.png', 'cupcake.png', 'penguin.png'];
       var imageIndex = 0;
 
       function start() {
@@ -82,7 +83,6 @@
         // THIS CODE IS SILLY. FIX IT.
         var turtle = new Image();
         turtle.onload = function () {
-          //draw background image
           var ctx = document.getElementById('myCanvas').getContext('2d');
           ctx.drawImage(turtle, 0, 0);
           ctx.clearRect(0, 0, 450, 450);
@@ -91,7 +91,6 @@
 
         var soccer = new Image();
         soccer.onload = function () {
-          //draw background image
           var ctx = document.getElementById('myCanvas').getContext('2d');
           ctx.drawImage(soccer, 0, 0);
           ctx.clearRect(0, 0, 450, 450);
@@ -101,7 +100,6 @@
 
         var penguin = new Image();
         penguin.onload = function () {
-          //draw background image
           var ctx = document.getElementById('myCanvas').getContext('2d');
           ctx.drawImage(penguin, 0, 0);
           ctx.clearRect(0, 0, 450, 450);
@@ -111,7 +109,6 @@
         
         var cupcake = new Image();
         cupcake.onload = function () {
-          //draw background image
           var ctx = document.getElementById('myCanvas').getContext('2d');
           ctx.drawImage(cupcake, 0, 0);
           ctx.clearRect(0, 0, 450, 450);
@@ -122,57 +119,101 @@
         imageList = [turtle,soccer, penguin, cupcake];
       }
 
-      function getToolboxElement() {
-        var match = location.search.match(/toolbox=([^&]+)/);
-        return document.getElementById('toolbox-' + (match ? match[1] : 'categories'));
-      }
+        function getToolboxElement() {
+          var match = location.search.match(/toolbox=([^&]+)/);
+          return document.getElementById('toolbox-' + (match ? match[1] : 'categories'));
+        }
 
-      function drawStuff() {
-        canvas = new MyCanvas();
-        canvas.clear();
-        canvas.setBackground(bgList[bgIndex]);
-        canvas.setSprite(new MySprite(canvas.cxt));
-        canvas.redraw();
-      }
-      function moveButton() {
-        canvas.moveSprite(20);
-      }
-      function turnButton() {
-        canvas.rotateSprite(10);
-      }
+        function drawStuff() {
+          Foo.canvas = new MyCanvas();
+          Foo.canvas.clear();
+          Foo.canvas.setBackground(bgList[bgIndex]);
+          Foo.canvas.setSprite(new MySprite(Foo.canvas.cxt));
+          Foo.canvas.redraw();
+        }
+
+        function moveButton() {
+          Foo.canvas.moveSprite(20);
+        }
+
+        function turnButton() {
+          Foo.canvas.rotateSprite(10);
+        }
+        
+        function backgroundButton() {
+          if (bgIndex < bgList.length - 1) {
+            bgIndex ++;
+          } else {
+            bgIndex = 0;
+          }
+          Foo.canvas.setBackground(bgList[bgIndex]);
+        }
+        function spriteButton() {
+          if (imageIndex < imageList.length - 1) {
+            imageIndex ++;
+          } else {
+            imageIndex = 0;
+          }
+          Foo.canvas.changeSpriteImage(imageList[imageIndex]);
+        }
+        function codeButton() {
+          var code =
+              Blockly.JavaScript.workspaceToCode(workspace);
+          alert(code);
+        }
       
-      function backgroundButton() {
+
+    // Setup interpreter API.
+    // rotateSprite
+    // moveSprite
+    // changeSprite
+    // changeBackground
+    function initApi(interpreter, scope) {
+      var wrapper = function(steps) {
+        Foo.canvas.rotateSprite(steps);
+      };
+      interpreter.setProperty(scope, 'rotateSprite',
+          interpreter.createNativeFunction(wrapper));
+    
+      wrapper = function(steps) {
+        Foo.canvas.moveSprite(steps);
+      };
+      interpreter.setProperty(scope, 'moveSprite',
+          interpreter.createNativeFunction(wrapper));
+      
+      wrapper = function() {
+         if (imageIndex < imageList.length - 1) {
+            imageIndex ++;
+          } else {
+            imageIndex = 0;
+          }
+          Foo.canvas.changeSpriteImage(imageList[imageIndex]);
+      };
+      interpreter.setProperty(scope, 'changeSprite',
+          interpreter.createNativeFunction(wrapper));
+     
+      wrapper = function() {
         if (bgIndex < bgList.length - 1) {
           bgIndex ++;
         } else {
           bgIndex = 0;
         }
-        canvas.setBackground(bgList[bgIndex]);
-      }
-      function spriteButton() {
-        if (imageIndex < imageList.length - 1) {
-          imageIndex ++;
-        } else {
-          imageIndex = 0;
-        }
-        canvas.changeSpriteImage(imageList[imageIndex]);
-      }
-      function codeButton() {
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        alert(code);
-       }
-      function runCodeButton() {
-        // Generate JavaScript code and run it.
-      window.LoopTrap = 1000;
-      Blockly.JavaScript.INFINITE_LOOP_TRAP =
-          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        Foo.canvas.setBackground(bgList[bgIndex]);
+      };
+      interpreter.setProperty(scope, 'changeBackground',
+          interpreter.createNativeFunction(wrapper));
+    }
+      
+    function nextStep() {
+      if (myInterpreter.step()) {
+        window.setTimeout(nextStep, 10);
+      };
+    }
+
+    function execCode() {
       var code = Blockly.JavaScript.workspaceToCode(workspace);
-      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-      try {
-        eval(code);
-      } catch (e) {
-        alert(e);
-      }
+      myInterpreter = new Interpreter(code, initApi);
+      nextStep();
     }
 
     </script>
@@ -241,15 +282,12 @@
       <button onclick='backgroundButton()' type="button"> bg </button>
       <button onclick='spriteButton()' type="button"> sprite </button>
       <button onclick='codeButton()' type="button"> see code </button>
-      <button onclick='runCodeButton()' type="button"> run code </button>
-
-
+      <button onclick='execCode()' type="button"> run code </button>
     </div>
          <canvas id="myCanvas" height="450" width="450">
         </canvas>
     </div>
     <div id="hiddenStuff">
-
     </div>
   </body>
 </html>
