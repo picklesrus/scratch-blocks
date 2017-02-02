@@ -156,9 +156,20 @@
           }
           Foo.canvas.changeSpriteImage(imageList[imageIndex]);
         }
-        function codeButton() {
+        function getCodeFromStartBlock() {
+           var topBlocks = workspace.getTopBlocks();
+          var startBlock = null;
+          for (var i = 0, block; block = topBlocks[i]; i++) {
+            if (block.type == 'activity_start') {
+              startBlock = block;
+            }
+          }
           var code =
-              Blockly.JavaScript.workspaceToCode(workspace);
+              Blockly.JavaScript.blockToCode(startBlock);
+          return code;
+        }
+        function codeButton() {
+          var code = getCodeFromStartBlock();
           alert(code);
         }
       
@@ -211,7 +222,13 @@
     }
 
     function execCode() {
+      // There's something weird about the generator setup here.  Somehow
+      // calling workspaceToCode is actually doing some initialization that
+      // blockToCode is not (e.g. variableDB_). Anyway, this call to
+      // workspaceToCode solves the problem for now.
       var code = Blockly.JavaScript.workspaceToCode(workspace);
+      var code = getCodeFromStartBlock();
+      
       myInterpreter = new Interpreter(code, initApi);
       nextStep();
     }
@@ -277,10 +294,10 @@
 
     <div id="canvasDiv">
     <div id="buttons">
-      <button onclick='moveButton()' type="button"> move </button>
+      <!--<button onclick='moveButton()' type="button"> move </button>
       <button onclick='turnButton()' type="button"> turn </button>
       <button onclick='backgroundButton()' type="button"> bg </button>
-      <button onclick='spriteButton()' type="button"> sprite </button>
+      <button onclick='spriteButton()' type="button"> sprite </button> -->
       <button onclick='codeButton()' type="button"> see code </button>
       <button onclick='execCode()' type="button"> run code </button>
     </div>
