@@ -192,24 +192,32 @@
       interpreter.setProperty(scope, 'moveSprite',
           interpreter.createNativeFunction(wrapper));
       
-      wrapper = function() {
-         if (imageIndex < imageList.length - 1) {
-            imageIndex ++;
-          } else {
-            imageIndex = 0;
-          }
-          Foo.canvas.changeSpriteImage(imageList[imageIndex]);
+      wrapper = function(index) {
+        if (index == 99) {
+          index =  Math.floor(Math.random() * imageList.length);
+        }
+
+        if (index >= imageList.length) {
+          index = imageList.length - 1;
+        } else if (index < 0) {
+          index = 0;
+        }
+        Foo.canvas.changeSpriteImage(imageList[index]);
       };
       interpreter.setProperty(scope, 'changeSprite',
           interpreter.createNativeFunction(wrapper));
      
-      wrapper = function() {
-        if (bgIndex < bgList.length - 1) {
-          bgIndex ++;
-        } else {
-          bgIndex = 0;
+      wrapper = function(index) {
+       if (index == 99) {
+          index =  Math.floor(Math.random() * bgList.length);
         }
-        Foo.canvas.setBackground(bgList[bgIndex]);
+      
+        if (index >= bgList.length) {
+          index = bgList.length - 1;
+        } else if (index < 0) {
+          index = 0;
+        }
+        Foo.canvas.setBackground(bgList[index]);
       };
       interpreter.setProperty(scope, 'changeBackground',
           interpreter.createNativeFunction(wrapper));
