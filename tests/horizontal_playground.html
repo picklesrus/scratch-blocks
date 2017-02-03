@@ -87,7 +87,7 @@
       function imageOnLoad(img) {
         var ctx = document.getElementById('myCanvas').getContext('2d');
           ctx.drawImage(img, 0, 0);
-          ctx.clearRect(0, 0, 450, 450);
+          ctx.clearRect(0, 0, 384, 512);
       }
       
       function loadImages() {
@@ -292,7 +292,7 @@
       <button onclick='codeButton()' type="button"> see code </button>
       <button onclick='execCode()' type="button"> run code </button>
     </div>
-         <canvas id="myCanvas" height="450" width="450">
+         <canvas id="myCanvas" height="384" width="512">
         </canvas>
     </div>
     <div id="hiddenStuff">

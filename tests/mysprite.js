@@ -6,8 +6,8 @@ function MySprite(img) {
 	this.height = 64;
 	this.width = 64;
 	this.rotation = 0;
-	this.maxX = 450;
-	this.maxY = 450;
+	this.maxX = 512;
+	this.maxY = 384;
 };
 
 MySprite.prototype.draw = function(ctx, x, y) {
@@ -19,14 +19,14 @@ MySprite.prototype.move = function(steps) {
   this.x += scaledStep*Math.sin((this.rotation + 90)  * (Math.PI/180));
   this.y += -1*scaledStep*Math.cos((this.rotation + 90)  * (Math.PI/180));
   if (this.x > this.maxX) {
-  	this.x = 0;
-  } else if (this.x < 0) {
-  	this.x = 450;
+  	this.x =  -this.width / 2.0;
+  } else if (this.x < -(this.width / 2.0)) {
+  	this.x = this.maxX - this.width / 2.0;
   }
   if (this.y > this.maxY) {
-  	this.y = 0;
-  } else if (this.y < 0) {
-    this.y = 450;
+  	this.y = -this.height/2.0;
+  } else if (this.y < -this.height/2.0) {
+    this.y = this.maxY - this.height/2.0;
   }
 };
 
@@ -43,8 +43,8 @@ MySprite.prototype.setSpriteImage = function(img) {
 
 function MyCanvas() {
 	this.canvas = document.getElementById('myCanvas');
-	this.width = 450;
-	this.height = 450;
+	this.width = 512;
+	this.height = 384;
     this.context = this.canvas.getContext('2d');
     this.sprite = null;
 };
