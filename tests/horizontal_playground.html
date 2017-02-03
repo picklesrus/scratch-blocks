@@ -31,6 +31,7 @@
       var bgList = ['turtlebg.jpg', 'clouds.jpg', 'trees.jpg'];
       var bgIndex = 0;
       var imageList = [];
+      var imageFileList = ['cupcake.png', 'turtle.png', 'penguin.png', 'soccer.png'];
       var imageIndex = 0;
 
       function start() {
@@ -79,44 +80,22 @@
         drawStuff();
       }
 
+      function imageOnLoad(img) {
+        var ctx = document.getElementById('myCanvas').getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          ctx.clearRect(0, 0, 450, 450);
+      }
+      
       function loadImages() {
-        // THIS CODE IS SILLY. FIX IT.
-        var turtle = new Image();
-        turtle.onload = function () {
-          var ctx = document.getElementById('myCanvas').getContext('2d');
-          ctx.drawImage(turtle, 0, 0);
-          ctx.clearRect(0, 0, 450, 450);
-        };
-        turtle.src = Blockly.mainWorkspace.options.pathToMedia + "turtle.png";
-
-        var soccer = new Image();
-        soccer.onload = function () {
-          var ctx = document.getElementById('myCanvas').getContext('2d');
-          ctx.drawImage(soccer, 0, 0);
-          ctx.clearRect(0, 0, 450, 450);
-
-        };
-        soccer.src = Blockly.mainWorkspace.options.pathToMedia + "soccer.png";
-
-        var penguin = new Image();
-        penguin.onload = function () {
-          var ctx = document.getElementById('myCanvas').getContext('2d');
-          ctx.drawImage(penguin, 0, 0);
-          ctx.clearRect(0, 0, 450, 450);
-
-        };
-        penguin.src = Blockly.mainWorkspace.options.pathToMedia + "penguin.png";
-        
-        var cupcake = new Image();
-        cupcake.onload = function () {
-          var ctx = document.getElementById('myCanvas').getContext('2d');
-          ctx.drawImage(cupcake, 0, 0);
-          ctx.clearRect(0, 0, 450, 450);
-
-        };
-        cupcake.src = Blockly.mainWorkspace.options.pathToMedia + "cupcake.png";
-
-        imageList = [turtle,soccer, penguin, cupcake];
+        // load images to canvas so they show up immediately when we try to draw.     
+        for (var i = 0; i < imageFileList.length; i++) {
+          var img = new Image();
+          img.onload = function() {
+            imageOnLoad(img);
+          }
+          img.src = Blockly.mainWorkspace.options.pathToMedia + imageFileList[i];
+          imageList.push(img);
+        }
       }
 
         function getToolboxElement() {
