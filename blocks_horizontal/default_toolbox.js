@@ -30,8 +30,20 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
         '<block type="activity_start"></block>' +
-        '<block type="change_background"></block>' +
-        '<block type="change_costume"></block>' +
+        '<block type="change_background">' +
+          '<value name="DURATION">' +
+            '<shadow type="math_positive_number">' +
+            '<field name="NUM">1</field>' +
+            '</shadow>' +
+          '</value>' +
+        '</block>' +
+        '<block type="change_costume">' + 
+          '<value name="DURATION">' +
+            '<shadow type="math_positive_number">' +
+            '<field name="NUM">1</field>' +
+            '</shadow>' +
+          '</value>' +
+        '</block>' +
         '<block type="change_mood">' +
           '<value name="CHOICE">' +
           '<shadow type="dropdown_change_mood">' +

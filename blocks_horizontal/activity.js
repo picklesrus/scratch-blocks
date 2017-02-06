@@ -151,10 +151,12 @@ Blockly.JavaScript['sprite_right'] = function(block) {
   return 'rotateSprite(' + steps + ');\n';
 };
 Blockly.JavaScript['change_costume'] = function(block) {
-  return 'changeSprite();\n';
+  var index = block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'changeSprite(' + index + ');\n';
 };
 Blockly.JavaScript['change_background'] = function(block) {
-  return 'changeBackground();\n';
+  var index = block.getFieldShadowBlock_().getFieldValue('NUM');
+  return 'changeBackground(' + index + ');\n';
 };
 Blockly.Blocks['sprite_back'] = {
  init: function() {
