@@ -1,6 +1,6 @@
 function MySprite(img) {
 	this.img = new Image();
-	this.img.src = Blockly.mainWorkspace.options.pathToMedia + "turtle.png";
+	this.img.src = Blockly.mainWorkspace.options.pathToMedia + "frog.svg";
 	this.x = 50;
 	this.y = 50;
 	this.height = 64;
