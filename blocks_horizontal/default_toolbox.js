@@ -31,20 +31,6 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
     '<category name="Events">' +
         '<block type="event_whenflagclicked"></block>' +
-        '<block type="event_whenbroadcastreceived">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_whenbroadcast">' +
-        '<field name="CHOICE">blue</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-        '<block type="event_broadcast">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_broadcast">' +
-        '<field name="CHOICE">blue</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
     '</category>' +
     '<category name="Control">' +
         '<block type="control_forever"></block>' +
@@ -55,7 +41,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="control_stop"></block>' +
         '<block type="control_wait">' +
         '<value name="DURATION">' +
         '<shadow type="math_positive_number">' +
@@ -65,13 +50,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</block>' +
     '</category>' +
     '<category name="Wedo">' +
-        '<block type="wedo_setcolor">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_wedo_setcolor">' +
-        '<field name="CHOICE">mystery</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
         '<block type="wedo_motorclockwise">' +
         '<value name="DURATION">' +
         '<shadow type="math_positive_number">' +
@@ -93,14 +71,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="wedo_whentilt">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_wedo_whentilt">' +
-        '<field name="CHOICE">forward</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-        '<block type="wedo_whendistanceclose"></block>' +
         '</category>' +
         '</xml>' +
         '<xml id="toolbox-simple" style="display: none">' +
