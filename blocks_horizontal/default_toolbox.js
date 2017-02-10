@@ -31,20 +31,6 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
     '<category name="Events">' +
         '<block type="event_whenflagclicked"></block>' +
-        '<block type="event_whenbroadcastreceived">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_whenbroadcast">' +
-        '<field name="CHOICE">blue</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-        '<block type="event_broadcast">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_broadcast">' +
-        '<field name="CHOICE">blue</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
     '</category>' +
     '<category name="Control">' +
         '<block type="control_forever"></block>' +
@@ -55,7 +41,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="control_stop"></block>' +
         '<block type="control_wait">' +
         '<value name="DURATION">' +
         '<shadow type="math_positive_number">' +
@@ -65,42 +50,53 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</block>' +
     '</category>' +
     '<category name="Wedo">' +
-        '<block type="wedo_setcolor">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_wedo_setcolor">' +
-        '<field name="CHOICE">mystery</field>' +
-        '</shadow>' +
-        '</value>' +
+    '<block type="looks_switchcostumeto">' + 
+          '<value name="COSTUME">' +
+            '<shadow type="math_positive_number">' +
+            '<field name="NUM">99</field>' +
+            '</shadow>' +
+          '</value>' +
+        '</block>' + 
+        '<block type="looks_switchbackdropto">' + 
+          '<value name="BACKDROP">' +
+            '<shadow type="math_positive_number">' +
+            '<field name="NUM">99</field>' +
+            '</shadow>' +
+          '</value>' +
         '</block>' +
-        '<block type="wedo_motorclockwise">' +
-        '<value name="DURATION">' +
+        '<block type="motion_turnright">' +
+        '<value name="DEGREES">' +
         '<shadow type="math_positive_number">' +
-        '<field name="NUM">1</field>' +
+        '<field name="NUM">15</field>' +
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="wedo_motorcounterclockwise">' +
-        '<value name="DURATION">' +
+        '<block type="motion_turnleft">' +
+        '<value name="DEGREES">' +
         '<shadow type="math_positive_number">' +
-        '<field name="NUM">1</field>' +
+        '<field name="NUM">15</field>' +
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="wedo_motorspeed">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_wedo_motorspeed">' +
-        '<field name="CHOICE">fast</field>' +
+        '<block type="motion_movesteps">' +
+        '<value name="STEPS">' +
+        '<shadow type="math_number">' +
+        '<field name="NUM">10</field>' +
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="wedo_whentilt">' +
-        '<value name="CHOICE">' +
-        '<shadow type="dropdown_wedo_whentilt">' +
-        '<field name="CHOICE">forward</field>' +
+        '<block type="motion_movesteps_back">' +
+        '<value name="STEPS">' +
+        '<shadow type="math_number">' +
+        '<field name="NUM">10</field>' +
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="wedo_whendistanceclose"></block>' +
+         '<block type="sound_play">'+
+      '<value name="SOUND_MENU">'+
+        '<shadow type="sound_sounds_menu"></shadow>'+
+      '</value>'+
+    '</block>'+
         '</category>' +
         '</xml>';
         
@@ -136,4 +132,5 @@ Blockly.Blocks.defaultToolboxSimple = '<xml id="toolbox-simple" style="display: 
         '</shadow>' +
         '</value>' +
         '</block>' +
+
     '</xml>';

@@ -39,24 +39,30 @@ Blockly.Blocks['control_repeat'] = {
   init: function() {
     this.jsonInit({
       "id": "control_repeat",
-      "message0": "%1 %2 %3",
+      "message0": "repeat %1",
+      "message1": "%1", // Statement
+      "message2": "%1", // Icon
+      "lastDummyAlign2": "RIGHT",
       "args0": [
+        {
+          "type": "input_value",
+          "name": "TIMES"
+        }
+      ],
+      "args1": [
         {
           "type": "input_statement",
           "name": "SUBSTACK"
-        },
+        }
+      ],
+      "args2": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/control_repeat.svg",
-          "width": 40,
-          "height": 40,
+          "src": Blockly.mainWorkspace.options.pathToMedia + "/c_arrow.svg",
+          "width": 16,
+          "height": 16,
           "alt": "*",
           "flip_rtl": true
-        },
-        {
-          "type": "input_value",
-          "name": "TIMES",
-          "check": "Number"
         }
       ],
       "inputsInline": true,
@@ -69,6 +75,7 @@ Blockly.Blocks['control_repeat'] = {
     });
   }
 };
+
 
 Blockly.Blocks['control_forever'] = {
   /**

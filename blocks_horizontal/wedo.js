@@ -65,6 +65,63 @@ Blockly.Blocks['dropdown_wedo_setcolor'] = {
   }
 };
 
+Blockly.Blocks['looks_switchcostumeto'] = {
+  init: function() {
+    this.jsonInit({
+      "id": "looks_switchcostumeto",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/costume.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "Wait"
+        },
+        {
+          "type": "input_value",
+          "name": "COSTUME"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+
+Blockly.Blocks['looks_switchbackdropto'] = {
+  init: function() {
+    this.jsonInit({
+      "id": "looks_switchbackdropto",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/ic_wallpaper.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "Wait"
+        },
+        {
+          "type": "input_value",
+          "name": "BACKDROP"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
 Blockly.Blocks['wedo_setcolor'] = {
   /**
    * Block to set color of LED
@@ -97,28 +154,91 @@ Blockly.Blocks['wedo_setcolor'] = {
     });
   }
 };
+Blockly.Blocks['sound_sounds_menu'] = {
+  /**
+   * Sound effects drop-down menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit(
+      {
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_dropdown",
+            "name": "SOUND_MENU",
+            "options": [
+              ['1', '0'],
+              ['2', '1'],
+              ['3', '2'],
+              ['4', '3'],
+              ['5', '4'],
+              ['6', '5'],
+              ['7', '6'],
+              ['8', '7'],
+              ['9', '8'],
+              ['10', '9']
+            ]
+          }
+        ],
+        "inputsInline": true,
+        "output": "String",
+        "colour": Blockly.Colours.sounds.secondary,
+        "colourSecondary": Blockly.Colours.sounds.secondary,
+        "colourTertiary": Blockly.Colours.sounds.tertiary,
+        "outputShape": Blockly.OUTPUT_SHAPE_ROUND
+      });
+  }
+};
+Blockly.Blocks['sound_play'] = {
+  init: function() {
+    this.jsonInit({
+      "id": "sound_play",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/speaker.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "Wait"
+        },
+        {
+          "type": "input_value",
+          "name": "SOUND_MENU",
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.sound,
+      "colour": Blockly.Colours.sounds.primary,
+      "colourSecondary": Blockly.Colours.sounds.secondary,
+      "colourTertiary": Blockly.Colours.sounds.tertiary
+    });
+  }
+};
 
-Blockly.Blocks['wedo_motorclockwise'] = {
+Blockly.Blocks['motion_turnright'] = {
   /**
    * Block to spin motor clockwise.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "id": "wedo_motorclockwise",
+      "id": "motion_turnright",
       "message0": "%1 %2",
       "args0": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/wedo_motor-clockwise.svg",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/right.svg",
           "width": 40,
           "height": 40,
           "alt": "Turn motor clockwise"
         },
         {
           "type": "input_value",
-          "name": "DURATION",
-          "check": "Number"
+          "name": "DEGREES",
         }
       ],
       "inputsInline": true,
@@ -132,26 +252,26 @@ Blockly.Blocks['wedo_motorclockwise'] = {
   }
 };
 
-Blockly.Blocks['wedo_motorcounterclockwise'] = {
+Blockly.Blocks['motion_turnleft'] = {
   /**
    * Block to spin motor counter-clockwise.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "id": "wedo_motorcounterclockwise",
+      "id": "motion_turnleft",
       "message0": "%1 %2",
       "args0": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/wedo_motor-counterclockwise.svg",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/left.svg",
           "width": 40,
           "height": 40,
           "alt": "Turn motor counter-clockwise"
         },
         {
           "type": "input_value",
-          "name": "DURATION",
+          "name": "DEGREES",
           "check": "Number"
         }
       ],
@@ -189,26 +309,25 @@ Blockly.Blocks['dropdown_wedo_motorspeed'] = {
   }
 };
 
-Blockly.Blocks['wedo_motorspeed'] = {
+Blockly.Blocks['motion_movesteps'] = {
   /**
-   * Block to set motor speed.
+   * Block to move steps.
    * @this Blockly.Block
    */
   init: function() {
     this.jsonInit({
-      "id": "wedo_motorspeed",
       "message0": "%1 %2",
       "args0": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/wedo_motor-speed_fast.svg",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/forward.svg",
           "width": 40,
           "height": 40,
           "alt": "Motor Speed"
         },
         {
           "type": "input_value",
-          "name": "CHOICE"
+          "name": "STEPS"
         }
       ],
       "inputsInline": true,
@@ -221,7 +340,37 @@ Blockly.Blocks['wedo_motorspeed'] = {
     });
   }
 };
-
+Blockly.Blocks['motion_movesteps_back'] = {
+  /**
+   * Block to move steps.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/back.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "Motor Speed"
+        },
+        {
+          "type": "input_value",
+          "name": "STEPS"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.motion,
+      "colour": Blockly.Colours.motion.primary,
+      "colourSecondary": Blockly.Colours.motion.secondary,
+      "colourTertiary": Blockly.Colours.motion.tertiary
+    });
+  }
+};
 Blockly.Blocks['dropdown_wedo_whentilt'] = {
   /**
    * Block for when tilt drop-down (used for shadow).
