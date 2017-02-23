@@ -29,10 +29,7 @@ goog.require('Blockly.Blocks');
  */
 
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
-    '<category name="Events">' +
         '<block type="event_whenflagclicked"></block>' +
-    '</category>' +
-    '<category name="Control">' +
         '<block type="control_forever"></block>' +
         '<block type="control_repeat">' +
         '<value name="TIMES">' +
@@ -48,8 +45,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</shadow>' +
         '</value>' +
         '</block>' +
-    '</category>' +
-    '<category name="Wedo">' +
     '<block type="looks_switchcostumeto">' + 
           '<value name="COSTUME">' +
             '<shadow type="math_positive_number">' +
@@ -97,7 +92,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '<shadow type="sound_sounds_menu"></shadow>'+
       '</value>'+
     '</block>'+
-        '</category>' +
         '</xml>';
         
 Blockly.Blocks.defaultToolboxSimple = '<xml id="toolbox-simple" style="display: none">' +
