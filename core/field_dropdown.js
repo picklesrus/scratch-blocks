@@ -373,6 +373,7 @@ Blockly.FieldDropdown.prototype.setText = function(text) {
     this.textElement_.setAttribute('class',
         this.textElement_.getAttribute('class') + ' blocklyDropdownText'
     );
+    this.textElement_.setAttribute('x', '32');
     this.textElement_.parentNode.appendChild(this.arrow_);
   }
 

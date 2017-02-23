@@ -67,6 +67,12 @@ Blockly.BlockSvg.FIELD_HEIGHT = 8 * Blockly.BlockSvg.GRID_UNIT;
 Blockly.BlockSvg.FIELD_WIDTH = 12 * Blockly.BlockSvg.GRID_UNIT;
 
 /**
+ * Drop-down arrow padding.
+ * @const
+ */
+Blockly.BlockSvg.DROPDOWN_ARROW_PADDING = 2 * Blockly.BlockSvg.GRID_UNIT;
+
+/**
  * Editable field padding (left/right of the text).
  * @const
  */
@@ -402,6 +408,19 @@ Blockly.BlockSvg.prototype.render = function(opt_bubble) {
     this.renderDraw_(metrics);
     this.renderClassify_(metrics);
     this.renderingMetrics_ = metrics;
+  }
+
+  // // call this on each text field.
+  // for (var t = 0, field; field = fieldList[t]; t++) {
+  //   field.render_();
+  // }
+
+  for (var i = 0, input; input = this.inputList[i]; i++) {
+    for (var j = 0, field; field = input.fieldRow[j]; j++) {
+      if (field instanceof Blockly.FieldTextInput) {
+        field.render_();
+      }
+    }
   }
 
   if (opt_bubble !== false) {
