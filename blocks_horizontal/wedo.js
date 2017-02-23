@@ -168,16 +168,13 @@ Blockly.Blocks['sound_sounds_menu'] = {
             "type": "field_dropdown",
             "name": "SOUND_MENU",
             "options": [
-              ['1', '0'],
-              ['2', '1'],
-              ['3', '2'],
-              ['4', '3'],
-              ['5', '4'],
-              ['6', '5'],
-              ['7', '6'],
-              ['8', '7'],
-              ['9', '8'],
-              ['10', '9']
+              ['cricket', '0'],
+              ['duck', '1'],
+              ['gong', '2'],
+              ['water drop', '3'],
+              ['dog', '4'],
+              ['drum', '5'],
+              ['guitar', '6']
             ]
           }
         ],
@@ -190,7 +187,7 @@ Blockly.Blocks['sound_sounds_menu'] = {
       });
   }
 };
-Blockly.Blocks['sound_play'] = {
+Blockly.Blocks['sound_playuntildone'] = {
   init: function() {
     this.jsonInit({
       "id": "sound_play",
