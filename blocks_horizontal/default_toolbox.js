@@ -44,6 +44,8 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '<block type="procedures_callnoreturn">' +
          '<mutation proccode="beat"></mutation>' + 
         '</block>'+
+        '<block type="looks_reset">' +
+        '</block>'+
         '<block type="procedures_callnoreturn">' +
          '<mutation proccode="pixelate"></mutation>' + 
         '</block>'+

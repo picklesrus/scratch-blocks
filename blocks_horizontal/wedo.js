@@ -314,6 +314,33 @@ Blockly.Blocks['motion_turnleft'] = {
       "colourTertiary": Blockly.Colours.motion.tertiary
     });
   }
+};Blockly.Blocks['looks_reset'] = {
+  /**
+   * Block to spin motor counter-clockwise.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "motion_turnleft",
+      "message0": "%1",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/reset.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "reset everything"
+        },
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
 };
 
 Blockly.Blocks['dropdown_wedo_motorspeed'] = {
