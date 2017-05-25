@@ -163,9 +163,9 @@ Blockly.Block = function(workspace, prototypeName, opt_id) {
     /** @type {string} */
     this.type = prototypeName;
     var prototype = Blockly.Blocks[prototypeName];
-    goog.asserts.assertObject(prototype,
-        'Error: "%s" is an unknown language block.', prototypeName);
-    goog.mixin(this, prototype);
+     goog.asserts.assertObject(prototype,
+         'Error: "%s" is an unknown language block.', prototypeName);
+     goog.mixin(this, prototype);
   }
 
   workspace.addTopBlock(this);

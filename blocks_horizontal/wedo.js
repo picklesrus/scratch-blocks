@@ -187,6 +187,39 @@ Blockly.Blocks['sound_sounds_menu'] = {
       });
   }
 };
+Blockly.Blocks['looks_effectmenu'] = {
+  /**
+   * Graphic effects drop-down menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit(
+      {
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_dropdown",
+            "name": "EFFECT",
+            "options": [
+              ['color', 'COLOR'],
+              ['fisheye', 'FISHEYE'],
+              ['whirl', 'WHIRL'],
+              ['pixelate', 'PIXELATE'],
+              ['mosaic', 'MOSAIC'],
+              ['brightness', 'BRIGHTNESS'],
+              ['ghost', 'GHOST']
+            ]
+          }
+        ],
+        "inputsInline": true,
+        "output": "String",
+        "colour": Blockly.Colours.looks.secondary,
+        "colourSecondary": Blockly.Colours.looks.secondary,
+        "colourTertiary": Blockly.Colours.looks.tertiary,
+        "outputShape": Blockly.OUTPUT_SHAPE_ROUND
+      });
+  }
+};
 Blockly.Blocks['sound_playuntildone'] = {
   init: function() {
     this.jsonInit({
@@ -198,7 +231,7 @@ Blockly.Blocks['sound_playuntildone'] = {
           "src": Blockly.mainWorkspace.options.pathToMedia + "icons/speaker.svg",
           "width": 40,
           "height": 40,
-          "alt": "Wait"
+          "alt": "Play Sound"
         },
         {
           "type": "input_value",
@@ -303,6 +336,217 @@ Blockly.Blocks['dropdown_wedo_motorspeed'] = {
       Blockly.Colours.motion.secondary,
       Blockly.Colours.motion.tertiary
     );
+  }
+};
+
+Blockly.Blocks['motion_changexby'] = {
+  /**
+   * Block to change X.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "change x by %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "DX"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.motion,
+      "colour": Blockly.Colours.motion.primary,
+      "colourSecondary": Blockly.Colours.motion.secondary,
+      "colourTertiary": Blockly.Colours.motion.tertiary
+    });
+  }
+};
+
+Blockly.Blocks['looks_fisheye'] = {
+  /**
+   * Block to change graphic effect.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "looks_fisheye",
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/eye.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "Change Effect"
+        },
+         {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+
+Blockly.Blocks['looks_changesizeby'] = {
+  /**
+   * Block to change size
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": " %1 %2",
+      "args0": [
+       {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/resize.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "make the sprite bigger"
+        },
+        {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+
+Blockly.Blocks['looks_pixelate'] = {
+  /**
+   * Block to change size
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": " %1 %2",
+      "args0": [
+       {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/pixel.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "pixelate graphic"
+        },
+        {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+
+Blockly.Blocks['looks_color'] = {
+  /**
+   * Block to change size
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": " %1 %2",
+      "args0": [
+       {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/color.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "pixelate graphic"
+        },
+        {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+Blockly.Blocks['looks_whirl'] = {
+  /**
+   * Block to change size
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": " %1 %2",
+      "args0": [
+       {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/whirl.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "pixelate graphic"
+        },
+        {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
+Blockly.Blocks['looks_mosaic'] = {
+  /**
+   * Block to change size
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": " %1 %2",
+      "args0": [
+       {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/mosaic.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "pixelate graphic"
+        },
+        {
+          "type": "input_value",
+          "name": "CHANGE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
   }
 };
 

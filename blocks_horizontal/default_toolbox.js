@@ -37,27 +37,31 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '<field name="NUM">4</field>' +
         '</shadow>' +
         '</value>' +
-        '</block>' +
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="grow-and-shrink"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="beat"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="pixelate"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="shadow"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="swirl"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="duplicate"></mutation>' + 
+        '</block>'+
         '<block type="control_wait">' +
         '<value name="DURATION">' +
         '<shadow type="math_positive_number">' +
         '<field name="NUM">1</field>' +
         '</shadow>' +
         '</value>' +
-        '</block>' +
-    '<block type="looks_switchcostumeto">' + 
-          '<value name="COSTUME">' +
-            '<shadow type="math_positive_number">' +
-            '<field name="NUM">99</field>' +
-            '</shadow>' +
-          '</value>' +
-        '</block>' + 
-        '<block type="looks_switchbackdropto">' + 
-          '<value name="BACKDROP">' +
-            '<shadow type="math_positive_number">' +
-            '<field name="NUM">99</field>' +
-            '</shadow>' +
-          '</value>' +
         '</block>' +
         '<block type="motion_turnright">' +
         '<value name="DEGREES">' +
@@ -73,25 +77,6 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
         '</shadow>' +
         '</value>' +
         '</block>' +
-        '<block type="motion_movesteps">' +
-        '<value name="STEPS">' +
-        '<shadow type="math_number">' +
-        '<field name="NUM">10</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-        '<block type="motion_movesteps_back">' +
-        '<value name="STEPS">' +
-        '<shadow type="math_number">' +
-        '<field name="NUM">10</field>' +
-        '</shadow>' +
-        '</value>' +
-        '</block>' +
-         '<block type="sound_playuntildone">'+
-      '<value name="SOUND_MENU">'+
-        '<shadow type="sound_sounds_menu"></shadow>'+
-      '</value>'+
-    '</block>'+
         '</xml>';
         
 Blockly.Blocks.defaultToolboxSimple = '<xml id="toolbox-simple" style="display: none">' +
