@@ -31,6 +31,8 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: none">' +
         '<block type="event_whenflagclicked"></block>' +
         '<block type="control_forever"></block>' +
+'<block type="sound_playuntildone">'+
+'<value name="SOUND_MENU"><shadow type="sound_sounds_menu"></shadow></value></block>'+
         '<block type="control_repeat">' +
         '<value name="TIMES">' +
         '<shadow type="math_whole_number">' +
