@@ -122,6 +122,26 @@ Blockly.Blocks['looks_switchbackdropto'] = {
     });
   }
 };
+
+Blockly.Blocks['looks_show'] = {
+  /**
+   * Show block.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit(
+      {
+        "message0": "show",
+        "previousStatement": null,
+        "nextStatement": null,
+        "category": Blockly.Categories.looks,
+        "colour": Blockly.Colours.looks.primary,
+        "colourSecondary": Blockly.Colours.looks.secondary,
+        "colourTertiary": Blockly.Colours.looks.tertiary
+      });
+  }
+};
+
 Blockly.Blocks['wedo_setcolor'] = {
   /**
    * Block to set color of LED
@@ -183,6 +203,41 @@ Blockly.Blocks['sound_sounds_menu'] = {
         "colour": Blockly.Colours.sounds.secondary,
         "colourSecondary": Blockly.Colours.sounds.secondary,
         "colourTertiary": Blockly.Colours.sounds.tertiary,
+        "outputShape": Blockly.OUTPUT_SHAPE_ROUND
+      });
+  }
+};
+Blockly.Blocks['looks_emoji_menu'] = {
+  /**
+   * Sound effects drop-down menu.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit(
+      {
+        "message0": "%1",
+        "args0": [
+          {
+            "type": "field_dropdown",
+            "name": "EMOJI_MENU",
+            "options": [
+              ['smile', 'smile'],
+              ['cry', 'cry'],
+              ['toilet', 'toilet'],
+              ['yam', 'yam'],
+              ['fire', 'fire'],
+              ['turtle', 'turtle'],
+              ['taco', 'taco'],
+              ['trophy', 'trophy'],
+              ['glasses', 'glasses']
+            ]
+          }
+        ],
+        "inputsInline": true,
+        "output": "String",
+        "colour": Blockly.Colours.looks.secondary,
+        "colourSecondary": Blockly.Colours.looks.secondary,
+        "colourTertiary": Blockly.Colours.looks.tertiary,
         "outputShape": Blockly.OUTPUT_SHAPE_ROUND
       });
   }
@@ -577,6 +632,37 @@ Blockly.Blocks['looks_mosaic'] = {
   }
 };
 
+Blockly.Blocks['looks_thinkforsecs'] = {
+  /**
+   * Block to move steps.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1 %2",
+      "args0": [
+        {
+          "type": "field_image",
+          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/forward.svg",
+          "width": 40,
+          "height": 40,
+          "alt": "say"
+        },
+        {
+          "type": "input_value",
+          "name": "MESSAGE"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "category": Blockly.Categories.looks,
+      "colour": Blockly.Colours.looks.primary,
+      "colourSecondary": Blockly.Colours.looks.secondary,
+      "colourTertiary": Blockly.Colours.looks.tertiary
+    });
+  }
+};
 Blockly.Blocks['motion_movesteps'] = {
   /**
    * Block to move steps.

@@ -171,11 +171,17 @@ Blockly.Blocks['procedures_callnoreturn'] = {
       } else if (newLabel == 'duplicate') {
                 var image = new Blockly.FieldImage(Blockly.mainWorkspace.options.pathToMedia + "icons/mosaic.svg", 40, 40, 'alt');
         this.appendDummyInput().appendField(image);
+      } else if (newLabel == 'jump') {
+                var image = new Blockly.FieldImage(Blockly.mainWorkspace.options.pathToMedia + "icons/jump.svg", 40, 40, 'alt');
+        this.appendDummyInput().appendField(image);
       } else if (newLabel == 'shadow') {
                 var image = new Blockly.FieldImage(Blockly.mainWorkspace.options.pathToMedia + "icons/shadow.svg", 40, 40, 'alt');
         this.appendDummyInput().appendField(image);
       } else if (newLabel == 'beat') {
                 var image = new Blockly.FieldImage(Blockly.mainWorkspace.options.pathToMedia + "icons/circledot.svg", 40, 40, 'alt');
+        this.appendDummyInput().appendField(image);
+      } else if (newLabel == 'emoji') {
+                var image = new Blockly.FieldImage(Blockly.mainWorkspace.options.pathToMedia + "icons/emoji.svg", 40, 40, 'alt');
         this.appendDummyInput().appendField(image);
       } else {
        this.appendDummyInput().appendField(newLabel.replace(/\\%/, '%'));

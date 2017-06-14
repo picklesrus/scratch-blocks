@@ -58,7 +58,13 @@ Blockly.Blocks.defaultToolbox = '<xml id="toolbox-categories" style="display: no
          '<mutation proccode="swirl"></mutation>' + 
         '</block>'+
         '<block type="procedures_callnoreturn">' +
-         '<mutation proccode="duplicate"></mutation>' + 
+         '<mutation proccode="jump"></mutation>' + 
+        '</block>'+
+        '<block type="procedures_callnoreturn">' +
+         '<mutation proccode="emoji %s"></mutation>' + 
+         '<value name ="input0"><shadow type="looks_emoji_menu">'+
+           '<value name="EMOJI_MENU"><shadow type="looks_emoji_menu"></shadow></value>' +
+           '</shadow></value>' +
         '</block>'+
         '<block type="control_wait">' +
         '<value name="DURATION">' +
