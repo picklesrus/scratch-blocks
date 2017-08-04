@@ -14,6 +14,9 @@ function getExtensions (extensions) {
     if (extensions.speech) {
         result += speech;
     }
+    if (extensions.sheets) {
+        result += sheets;
+    }
     return result;
 }
 
@@ -43,6 +46,18 @@ const speech =
             '</value>' +
         '</block>' +
         '<block type="speech_getlatestspeech"></block>' +
+    '</category>'}`;
+
+const sheets =
+    `${'<category name="Sheets" colour="#FF6680" secondaryColour="#FF4D6A">' +
+        '<label text="Sheets" web-class="categoryLabel"></label>' +
+        '<block type="sheets_temp">' +
+          '<value name="STRING">' +
+            '<shadow type="text">' +
+              '<field name="TEXT">what</field>' +
+            '</shadow>' +
+          '</value>' +
+        '</block>' +
     '</category>'}`;
 
 const wedo =

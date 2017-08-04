@@ -71,10 +71,18 @@ class Blocks extends React.Component {
                 this.props.vm.runtime.HACK_SpeechBlocks.startSpeechRecogntion();
             }
             if (!prevProps.extensions.wedo && this.props.extensions.wedo) {
+                console.log('catching wedo events')
                 this.workspace.updateToolbox(getToolbox(this.props.extensions));
                 this.setToolboxSelectedItemByName('WeDo');
                 this.props.vm.runtime.HACK_WeDo2Blocks.connect();
             }
+            if (!prevProps.extensions.sheets && this.props.extensions.sheets) {
+                console.log('catching sheets events')
+                this.workspace.updateToolbox(getToolbox(this.props.extensions));
+                this.setToolboxSelectedItemByName('Sheets');
+                //this.props.vm.runtime.HACK_WeDo2Blocks.connect();
+            }
+
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
@@ -275,7 +283,8 @@ class Blocks extends React.Component {
 Blocks.propTypes = {
     extensions: PropTypes.shape({
         wedo: PropTypes.bool,
-        speech: PropTypes.bool
+        speech: PropTypes.bool,
+        sheets: PropTypes.bool,
     }),
     isVisible: PropTypes.boolean,
     options: PropTypes.shape({

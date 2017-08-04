@@ -624,7 +624,30 @@ module.exports = function (vm) {
             });
         }
     };
-
+    ScratchBlocks.Blocks.sheets_temp = {
+        /**
+        * Block to speak a string with speech synthesis.
+        * @this Blockly.Block
+        */
+        init: function () {
+            this.jsonInit({
+                message0: '%1 sheet %2',
+                args0: [
+                    speechIcon,
+                    {
+                        type: 'input_value',
+                        name: 'STRING'
+                    }
+                ],
+                previousStatement: null,
+                nextStatement: null,
+                category: ScratchBlocks.Categories.extensions,
+                colour: ScratchBlocks.Colours.extensions.primary,
+                colourSecondary: ScratchBlocks.Colours.extensions.secondary,
+                colourTertiary: ScratchBlocks.Colours.extensions.tertiary
+            });
+        }
+    };
     ScratchBlocks.Blocks.sound_sounds_menu.init = function () {
         const json = jsonForMenuBlock('SOUND_MENU', soundsMenu, soundColors, []);
         this.jsonInit(json);

@@ -14,7 +14,8 @@ const {
 
 const {
     enableWedo,
-    enableSpeech
+    enableSpeech,
+    enableSheets
 } = require('../reducers/toolbox');
 
 const TargetPaneComponent = require('../components/target-pane/target-pane.jsx');
@@ -32,6 +33,7 @@ class TargetPane extends React.Component {
             'handleDeleteSprite',
             'handleSelectSprite',
             'handleSpeechClick',
+            'handleSheetsClick',
             'handleWedoClick'
         ]);
         this.state = {extensions: {}};
@@ -63,6 +65,10 @@ class TargetPane extends React.Component {
     handleSpeechClick () {
         this.props.onEnableSpeech();
     }
+    handleSheetsClick () {
+        console.log('in handlesheet click');
+        this.props.onEnableSheets();
+    }
     handleWedoClick () {
         this.props.onEnableWedo();
     }
@@ -80,6 +86,7 @@ class TargetPane extends React.Component {
                 onDeleteSprite={this.handleDeleteSprite}
                 onNewSpeechClick={this.handleSpeechClick}
                 onNewWedoClick={this.handleWedoClick}
+                onNewSheetsClick={this.handleSheetsClick}
                 onSelectSprite={this.handleSelectSprite}
             />
         );
@@ -138,6 +145,11 @@ const mapDispatchToProps = dispatch => ({
     },
     onEnableSpeech: () => {
         dispatch(enableSpeech());
+    },
+    onEnableSheets: () => {
+        console.log('onEnableSheets');
+        var foo = enableSheets();
+        dispatch(foo);
     }
 });
 
