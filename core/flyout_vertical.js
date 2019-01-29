@@ -170,6 +170,43 @@ Blockly.VerticalFlyout.prototype.createDom = function(tagName) {
 };
 
 /**
+ * Calculate the bounding box of the flyout.
+ *
+ * @return {Object} Contains the position and size of the bounding
+ * box containing the elements (blocks and buttons) in the flyout.
+ */
+Blockly.VerticalFlyout.prototype.getContentBoundingBox_ = function() {
+  var contentBounds = this.workspace_.getBlocksBoundingBox();
+  var bounds = {
+    x: contentBounds.x,
+    y: contentBounds.y,
+    width: contentBounds.width,
+    height: contentBounds.height
+  };
+  for (var i = 0; i < this.buttons_.length; i ++) {
+    var button = this.buttons_[0];
+    var buttonPosition = button.getPosition();
+    // When the button is outside the Bounding box on the top or left
+    if (buttonPosition.x  < contentBounds.x) {
+      bounds.x = buttonPosition.x;
+    }
+    if (buttonPosition.y < contentBounds.y) {
+      bounds.y = buttonPosition.y;
+    }
+    // Button extends past the bounding box to the right.
+    if (buttonPosition.x + button.width > contentBounds.x + contentBounds.width) {
+      bounds.width = (buttonPosition.x  + button.width) - contentBounds.x;
+    }
+
+    // Button extends past the bounding box on the bottom
+    if (buttonPosition.y + button.height > contentBounds.y + contentBounds.height) {
+      bounds.height = (buttonPosition.y + button.height) - contentBounds.y;
+    }
+  }
+  return bounds;
+};
+
+/**
  * Return an object with all the metrics required to size scrollbars for the
  * flyout.  The following properties are computed:
  * .viewHeight: Height of the visible rectangle,
@@ -192,7 +229,7 @@ Blockly.VerticalFlyout.prototype.getMetrics_ = function() {
   }
 
   try {
-    var optionBox = this.workspace_.getCanvas().getBBox();
+    var optionBox = this.getContentBoundingBox_();
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
     var optionBox = {height: 0, y: 0, width: 0, x: 0};
